@@ -1,7 +1,4 @@
-
 import random
-
-
 
 class Player:
     def __init__(self):
@@ -25,7 +22,6 @@ class Player:
         while ones_in_hand > 0 and hand_total > 21:
             hand_total -= 10
             ones_in_hand -= 1
-
         return hand_total
 
     def busted(self):
@@ -51,7 +47,6 @@ class Game:
 
         for i in range((len(players)) *2):
             self.players[i % (len(players))].draw_card(self.deck.deal())
-
 
     def hit_or_stand(self, player_number):
         while (h_o_s := input("player" + str(player_number) + " Do you want to hit or stand h/s\n")) != "h" and (h_o_s != "s"):
@@ -107,7 +102,6 @@ def play():
                     print("\nplayer" + str(i) + " Your hand is", *players[i].hand, sep=" ",end="\n")
                     print("crupier's hand is " + str(players[-1].hand[0]) + " ? ", end="\n")
 
-
                     if game.hit_or_stand(i) == False:
                         player_turn = False
 
@@ -120,13 +114,14 @@ def play():
             print("\ncrupier's hand is ", *players[-1].hand, sep=" ", end="\n")
 
             for i in range(number_of_players):
-                if game.winner(i):
-                    print("player" + str(i) + " wins")
+                if players[i].hand_value() == players[-1].hand_value():
+                     print("player" + str(i) + " push")
 
+                elif game.winner(i):
+                    print("player" + str(i) + " wins")
                     players[i].money += players[i].amount_in_bet
                 else:
                     print("player" + str(i) + " loses")
-
                     players[i].money -= players[i].amount_in_bet
 
         elif start_game == "n":
